@@ -1,3 +1,4 @@
+  
 import websocket
 import threading
 import time
@@ -153,8 +154,15 @@ class DyDanmuCrawler:
         chat_messages =self.__msg_handler.get_chat_messages(msg)
         for message in chat_messages:
             print(f"{message['nn']}:{message['txt']}")
+            self.wite_to_file(f"{message['nn']}:{message['txt']}")
         # 将字节流转化为字符串，忽略无法解码的错误（即斗鱼协议中的头部尾部）
         #print(message.decode(encoding='utf-8', errors='ignore'))
+    
+    def wite_to_file(self,danmu):
+        filename = 'danmu.txt'
+        with open(filename, 'a') as file_object:
+            file_object.write(danmu)
+            file_object.write("\n")
 
 class DyDanmuWebSocketClient:
     def __init__(self,on_open,on_message,on_close):
@@ -178,6 +186,6 @@ class DyDanmuWebSocketClient:
         print(error)
 
 
-roomid = "666743"
+roomid = input("请输入房间号：")
 dy_barrage_crawler = DyDanmuCrawler(roomid)
 dy_barrage_crawler.start()
