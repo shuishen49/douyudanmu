@@ -1,3 +1,8 @@
+
+# pip install
+websocket_client==0.57.0
+
+
 # douyudanmu
 斗鱼直播间弹幕爬取python
 
